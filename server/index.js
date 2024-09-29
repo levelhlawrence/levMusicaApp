@@ -1,9 +1,4 @@
-const { app, port, router } = require("./app/server");
-
-// default route
-router.use("/", (req, res) => {
-  res.json({ status: res.statusCode, method: req.method });
-});
+const { app, port } = require("./app/server");
 
 // Running server
 app.listen(port, () => {
