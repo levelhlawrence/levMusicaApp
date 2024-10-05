@@ -1,17 +1,12 @@
 import "./index.css";
-import NavBar from "./components/NavBar";
 import { ContextProvider } from "./components/MyContext";
 import { Route, Routes } from "react-router-dom";
+//importing font sizes
+
 // Import Pages
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-import Favorites from "./pages/Favorites";
-import Library from "./pages/Library";
-import Login from "./pages/Login";
-import Tracks from "./components/Tracks";
-import CategoryItem from "./components/CategoryItem/CategoryItem";
-import Player from "./components/Player";
-import AlbumTracks from "./components/AlbumTracks";
+import NavBar from "./components/NavComponent/NavBar";
 
 function App() {
   return (
@@ -20,13 +15,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/categories/:id" element={<CategoryItem />} />
-        <Route path="/categories/tracks/:id" element={<Tracks />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/tracks/player/:id" element={<Player />} />
-        <Route path="/album/:id" element={<AlbumTracks />} />
       </Routes>
     </ContextProvider>
   );

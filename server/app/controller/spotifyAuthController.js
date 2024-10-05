@@ -48,7 +48,11 @@ const callBack = async (req, res) => {
         scope: data.scope,
       });
     }
-    res.redirect("http://localhost:5173/");
+
+    const hourPrior = new Date(Date.now() - 3600 * 1000);
+    const deleteAll = await Token.deleteMany({ createdAt: { $lt: hourPrior } });
+
+    res.redirect(process.env.CLIENT_HOME_PAGE);
   } catch (error) {
     res.json({ error: error.message });
   }
