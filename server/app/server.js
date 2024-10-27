@@ -3,9 +3,10 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const morgan = require("morgan");
+const db = require("./db/database");
+// imported routes
 const spotifyAuthRouter = require("./router/spotifyAuthRoute");
 const getTokenRoute = require("./middleware/tokenMiddle");
-const db = require("./db/database");
 
 //middlewares
 app.use(cors());

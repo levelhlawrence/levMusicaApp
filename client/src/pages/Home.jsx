@@ -1,4 +1,16 @@
+import { MyContext } from "../components/MyContext";
+import { useContext } from "react";
+import { useEffect } from "react";
+
 const Home = () => {
+  const { getToken } = useContext(MyContext);
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  console.log(document.cookie);
+
   return (
     <section
       id="home-page"

@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import axios from "axios";
-
 const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
@@ -10,18 +9,18 @@ const ContextProvider = ({ children }) => {
   // Fetching Token
   const getToken = async () => {
     try {
-      const token = await axios.get("http://localhost:3001/auth/getToken");
-      const tokenData =
-        token.data.token[token.data.token.length - 1].accessToken;
-      return tokenData;
+      const response = await axios.get("http://localhost:3001/token");
+      const data = response.data.tokens[response.data.tokens.length - 1];
+
+      return data;
     } catch (error) {
-      console.log(error.message);
+      return error.message;
     }
   };
 
   return (
     <MyContext.Provider
-      value={{ toggleMenu, setToggleMenu, getToken, loggedIn, setLoggedIn }}
+      value={{ toggleMenu, setToggleMenu, loggedIn, setLoggedIn, getToken }}
     >
       {children}
     </MyContext.Provider>

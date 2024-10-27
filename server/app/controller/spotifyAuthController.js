@@ -39,6 +39,7 @@ const callBack = async (req, res) => {
   try {
     const response = await axios(authOptions);
     const data = response.data;
+
     if (data) {
       const token = Token.create({
         accessToken: data.access_token,
