@@ -1,41 +1,55 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { IoSearch } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 import Categories from "../components/SearchComponets/Categories";
+import axios from "axios";
+import { MyContext } from "../components/MyContext";
+import SearchResults from "../components/SearchComponets/SearchResults";
 
 const Search = () => {
   const searchBar = useRef(null);
   const inputRef = useRef(null);
-  const [selected, setSelected] = useState("Top Results");
+  const [selected, setSelected] = useState("album");
+  const [isSearching, setIsSearching] = useState(false);
+  const [token, setToken] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchData, setSearchData] = useState({});
+
+  const { getToken } = useContext(MyContext);
 
   useEffect(() => {
-    searchHandler();
+    getToken().then((data) => setToken(data));
   }, []);
-
   const searchOptions = [
-    "top results",
-    "artist",
-    "playlist",
     "album",
+    "artist",
     "track",
     "show",
     "episode",
     "audiobook",
   ];
 
-  const searchHandler = () => {};
+  const searchHandler = async (e) => {
+    const { value } = e.target;
+
+    setSearchValue(value);
+    setIsSearching(value.length > 0);
+    const response = await axios({
+      method: "get",
+      url: `https://api.spotify.com/v1/search?q=${searchValue}&type=${selected}`,
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`,
+      },
+    });
+    const data = response.data;
+    setSearchData(data);
+    console.log(data);
+  };
 
   const searchParmaHandler = (e) => {
-    const { innerText, classList } = e.target;
+    const { innerText } = e.target;
 
-    setSelected(innerText);
-
-    classList.toggle(
-      "bg-red-600",
-      selected.toLowerCase() === innerText.toLowerCase()
-    );
-
-    console.log(innerText);
+    setSelected(innerText.toLowerCase());
   };
 
   return (
@@ -46,7 +60,6 @@ const Search = () => {
       <h1 className="text-4xl font-semibold mb-8">Find Albums</h1>
       <div className="search-area">
         <div
-          onClick={searchHandler}
           ref={searchBar}
           className="rounded-lg focus:focus-ring bg-gray-300 w-full 
           py-1 flex items-center mb-2"
@@ -54,6 +67,7 @@ const Search = () => {
           <IoSearch className="mx-2  text-gray-500" />
           <input
             ref={inputRef}
+            onChange={searchHandler}
             placeholder="search.."
             className="focus:outline-none bg-transparent w-full text-black"
             type="text"
@@ -76,8 +90,11 @@ const Search = () => {
             );
           })}
         </div>
-        <div>
-          <Categories />
+        <div className="relative">
+          {!isSearching && <Categories />}
+          {isSearching && (
+            <SearchResults results={searchData} selected={selected} />
+          )}
         </div>
       </div>
     </section>

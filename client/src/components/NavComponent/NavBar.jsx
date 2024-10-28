@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <nav className="fixed bottom-0 w-full ">
+    <nav className="fixed bottom-0 w-full z-50">
       <ul className="border-t border-t-gray-700 shadow-sm bg-gradient-to-b from-10% backdrop-blur-md from-gray-800/75 to-gray-900/75 h-14  flex items-center justify-evenly px-10">
         <li className="h-full">
           <NavLink
