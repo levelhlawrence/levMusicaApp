@@ -59,4 +59,9 @@ const callBack = async (req, res) => {
   }
 };
 
-module.exports = { login, callBack };
+const logout = async (req, res) => {
+  const deleteAll = await Token.deleteMany();
+  res.redirect(process.env.CLIENT_HOME_PAGE + "login");
+};
+
+module.exports = { login, callBack, logout };

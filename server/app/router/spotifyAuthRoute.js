@@ -1,5 +1,9 @@
 const router = require("express").Router();
-const { login, callBack } = require("../controller/spotifyAuthController");
+const {
+  login,
+  callBack,
+  logout,
+} = require("../controller/spotifyAuthController");
 
 // login route
 /**
@@ -17,5 +21,7 @@ router.get("/login", login);
  * GET /auth/callback
  */
 router.get("/callback", callBack);
+
+router.get("/logout", logout);
 
 module.exports = router;

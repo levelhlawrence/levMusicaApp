@@ -57,7 +57,7 @@ const Search = () => {
       id="home-page"
       className="text-white bg-black min-h-screen px-6 pt-8"
     >
-      <h1 className="text-4xl font-semibold mb-8">Find Albums</h1>
+      <h1 className="text-4xl font-semibold mb-8">Find Songs</h1>
       <div className="search-area">
         <div
           ref={searchBar}

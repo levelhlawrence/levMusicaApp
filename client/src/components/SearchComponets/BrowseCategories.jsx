@@ -4,6 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 const BrowseCategories = () => {
   const { state } = useLocation();
 
+  if (!state) {
+    return (
+      <div className="text-4xl bg-black text-white">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
   return (
     <section className="bg-black text-white min-h-screen">
       <div>
