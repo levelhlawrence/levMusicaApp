@@ -50,6 +50,13 @@ const callBack = async (req, res) => {
       });
     }
 
+    res.cookie("accessToken", data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: data.expires_in * 1000,
+      sameSite: "Lax",
+    });
+
     const hourPrior = new Date(Date.now() - 3600 * 1000);
     const deleteAll = await Token.deleteMany({ createdAt: { $lt: hourPrior } });
 
@@ -61,6 +68,11 @@ const callBack = async (req, res) => {
 
 const logout = async (req, res) => {
   const deleteAll = await Token.deleteMany();
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Lax",
+  });
   res.redirect(process.env.CLIENT_HOME_PAGE + "login");
 };
 

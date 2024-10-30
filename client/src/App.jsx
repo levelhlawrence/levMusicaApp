@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import NavBar from "./components/NavComponent/NavBar";
 // Import Side routes
 import BrowseCategories from "./components/SearchComponets/BrowseCategories";
+import Playlist from "./components/SearchComponets/Playlist";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         {/* side routes */}
-        <Route path="/search/categories/:id" element={<BrowseCategories />} />
+        <Route path="/browse/categories/:id" element={<BrowseCategories />} />
+        <Route path="/playlist/:id" element={<Playlist />} />
       </Routes>
     </ContextProvider>
   );

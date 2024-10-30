@@ -1,54 +1,41 @@
-import axios from "axios";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../MyContext";
 import { v4 as uuidv4 } from "uuid";
+import authCred from "../../auth/serverAuth";
 
 const Categories = () => {
-  const { getToken } = useContext(MyContext);
-  const [token, setToken] = useState(null);
   const [categoryData, setCategoryData] = useState(null);
   const navigate = useNavigate();
 
   const getCategories = async () => {
-    await getToken().then((data) => setToken(data));
-
     try {
-      const response = await axios({
-        method: "get",
-        url: "https://api.spotify.com/v1/browse/categories",
-        headers: {
-          Authorization: `Bearer ${token.accessToken}`,
-        },
-      });
-
+      const response = await authCred.get("/browse/categories");
       const data = response.data.categories;
       setCategoryData(data);
     } catch (error) {
-      console.log(error.message);
-      console.log("status code:", error.status);
-      if (error.status === 401) {
+      console.warn("Error:", error.message);
+      if (error.response?.status === 401) {
         navigate("/login", { replace: true });
       }
     }
   };
 
   const selectingCategoryHandler = async (item) => {
-    const response = await axios({
-      method: "get",
-      url: `${item.href}/playlists`,
-      headers: { Authorization: `Bearer ${token.accessToken}` },
-    });
-    const data = response.data;
-    console.log(data);
-    navigate(`/search/categories/${item.id}`, {
-      state: { playlist: data, items: item },
-    });
+    try {
+      const response = await authCred.get(`browse/categories/${item.id}`);
+      const data = response.data;
+
+      navigate(`/browse/categories/${item.id}`, {
+        state: { playlist: data, items: item },
+      });
+    } catch (error) {
+      console.error("Error fetching category details:", error.message);
+    }
   };
 
   useEffect(() => {
     getCategories();
-  }, [!token]);
+  }, []);
 
   return (
     <article>

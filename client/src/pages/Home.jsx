@@ -1,16 +1,24 @@
-import { MyContext } from "../components/MyContext";
-import { useContext } from "react";
+import authCred from "../auth/serverAuth";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { getToken } = useContext(MyContext);
-
+  const navigate = useNavigate();
+  const getCategories = async () => {
+    try {
+      const response = await authCred.get("/browse/categories");
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.warn(error.message);
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
   useEffect(() => {
-    getToken();
+    getCategories();
   }, []);
-
-  console.log(document.cookie);
-
   return (
     <section
       id="home-page"

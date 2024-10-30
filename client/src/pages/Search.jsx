@@ -1,25 +1,18 @@
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 import Categories from "../components/SearchComponets/Categories";
-import axios from "axios";
-import { MyContext } from "../components/MyContext";
 import SearchResults from "../components/SearchComponets/SearchResults";
+import authCred from "../auth/serverAuth";
 
 const Search = () => {
   const searchBar = useRef(null);
   const inputRef = useRef(null);
   const [selected, setSelected] = useState("album");
   const [isSearching, setIsSearching] = useState(false);
-  const [token, setToken] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [searchData, setSearchData] = useState({});
 
-  const { getToken } = useContext(MyContext);
-
-  useEffect(() => {
-    getToken().then((data) => setToken(data));
-  }, []);
   const searchOptions = [
     "album",
     "artist",
@@ -34,22 +27,19 @@ const Search = () => {
 
     setSearchValue(value);
     setIsSearching(value.length > 0);
-    const response = await axios({
-      method: "get",
-      url: `https://api.spotify.com/v1/search?q=${searchValue}&type=${selected}`,
-      headers: {
-        Authorization: `Bearer ${token.accessToken}`,
-      },
-    });
+
+    const response = await authCred.get(
+      `/search?q=${searchValue}&type=${selected}`
+    );
+
     const data = response.data;
     setSearchData(data);
-    console.log(data);
   };
 
   const searchParmaHandler = (e) => {
     const { innerText } = e.target;
 
-    setSelected(innerText.toLowerCase());
+    setSelected(innerText.toLowerCase().trim());
   };
 
   return (
