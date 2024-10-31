@@ -8,15 +8,17 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
 // Import Components
-import NavBar from "./components/NavComponent/NavBar";
+import NavBarNew from "./components/NavComponent/NavBarNew";
 // Import Side routes
 import BrowseCategories from "./components/SearchComponets/BrowseCategories";
 import Playlist from "./components/SearchComponets/Playlist";
+import GetAlbum from "./components/SearchComponets/GetArtist";
+import Footer from "./components/FooterComponent/Footer";
 
 function App() {
   return (
     <ContextProvider>
-      <NavBar />
+      <NavBarNew />
       <Routes>
         {/* main routes */}
         <Route exact path="/" element={<Home />} />
@@ -25,7 +27,9 @@ function App() {
         {/* side routes */}
         <Route path="/browse/categories/:id" element={<BrowseCategories />} />
         <Route path="/playlist/:id" element={<Playlist />} />
+        <Route path="/album/:id" element={<GetAlbum />} />
       </Routes>
+      <Footer />
     </ContextProvider>
   );
 }

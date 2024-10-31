@@ -12,7 +12,11 @@ const getTokenRoute = require("./middleware/tokenMiddle");
 const categoryRoutes = require("./router/categoryRoute");
 const playlistRoutes = require("./router/playlistRoutes");
 const searchRoutes = require("./router/searchRoutes");
-const albumRoutes = require("./router/albumRoutes");
+const albumsRoutes = require("./router/albumsRoutes");
+const tracksRoutes = require("./router/tracksRoutes");
+const showsRoutes = require("./router/showsRoutes");
+const episodesRoutes = require("./router/episodesRoutes");
+const audiobooksRoutes = require("./router/audiobooksRoutes");
 
 //middlewares
 app.use(
@@ -34,6 +38,10 @@ app.use("/token", getTokenRoute);
 app.use("/browse", categoryRoutes);
 app.use("/playlist", playlistRoutes);
 app.use("/search", searchRoutes);
-app.use("/album", albumRoutes);
+app.use("/albums", albumsRoutes);
+app.use("/tracks", tracksRoutes);
+// app.use("/shows", showsRoutes);
+// app.use("/episodes", episodesRoutes);
+// app.use("/audiobooks ", audiobooksRoutes);
 
 module.exports = app;

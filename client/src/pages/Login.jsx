@@ -8,7 +8,7 @@ const Login = () => {
     >
       <div className="absolute inset-0 bg-black opacity-75 z-10"></div>
 
-      <div className="flex relative justify-center min-h-screen items-center z-50">
+      <div className="flex relative justify-center min-h-screen items-center z-40">
         <div className="text-center flex flex-col items-center mb-72">
           <h4 className="text-2xl font-bold text-green-600">Welcome to</h4>
           <h1 className="text-6xl font-bold text-white mb-4">LevMusica</h1>

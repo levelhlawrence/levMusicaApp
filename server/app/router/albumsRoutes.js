@@ -1,4 +1,4 @@
-const { getSingleAlbum } = require("../controller/albumController");
+const { getSingleAlbum } = require("../controller/albumsController");
 const router = require("express").Router();
 
 // get several album

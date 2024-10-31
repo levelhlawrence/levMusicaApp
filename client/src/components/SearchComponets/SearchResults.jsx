@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
-
+import authCred from "../../auth/serverAuth.js";
+import { useNavigate } from "react-router-dom";
 /* eslint-disable react/prop-types */
 
 const SearchResults = ({ results, selected }) => {
   const [myItems, setMyItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const totalSongs = results[`${selected}s`]?.total;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-
     const items = results[`${selected}s`]?.items || [];
     setMyItems(items);
 
@@ -19,19 +19,43 @@ const SearchResults = ({ results, selected }) => {
     }
   }, [selected, results]);
 
-  const resultsHandler = (result) => {
+  const resultsHandler = async (result) => {
     let url = "";
     switch (selected) {
       case "artist":
-        url = "artist";
+        url = `/artists/${result.id}`;
         break;
       case "track":
-        url = "track";
+        url = `/tracks/${result.id}`;
+        break;
+      case "show":
+        url = `/shows/${result.id}`;
+        break;
+      case "episodes":
+        url = `/shows/${result.id}`;
+        break;
+      case "audiobooks":
+        url = `/audiobooks/${result.id}`;
         break;
       default:
-        url = "album";
+        url = `/albums/${result.id}`;
     }
+    console.log(url);
     console.log(result);
+
+    // try {
+    //   const response = await authCred.get(url);
+    //   const data = response.data;
+    //   console.log(data);
+    //   navigate(url, {
+    //     state: { album: data },
+    //   });
+    // } catch (error) {
+    //   console.warn("Error:", error.message);
+    //   if (error.response?.status === 401) {
+    //     navigate("/login", { replace: true });
+    //   }
+    // }
   };
 
   if (loading) {
