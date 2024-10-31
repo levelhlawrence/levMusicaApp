@@ -12,6 +12,7 @@ const getTokenRoute = require("./middleware/tokenMiddle");
 const categoryRoutes = require("./router/categoryRoute");
 const playlistRoutes = require("./router/playlistRoutes");
 const searchRoutes = require("./router/searchRoutes");
+const albumRoutes = require("./router/albumRoutes");
 
 //middlewares
 app.use(
@@ -33,5 +34,6 @@ app.use("/token", getTokenRoute);
 app.use("/browse", categoryRoutes);
 app.use("/playlist", playlistRoutes);
 app.use("/search", searchRoutes);
+app.use("/album", albumRoutes);
 
 module.exports = app;

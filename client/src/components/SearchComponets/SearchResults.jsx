@@ -19,6 +19,21 @@ const SearchResults = ({ results, selected }) => {
     }
   }, [selected, results]);
 
+  const resultsHandler = (result) => {
+    let url = "";
+    switch (selected) {
+      case "artist":
+        url = "artist";
+        break;
+      case "track":
+        url = "track";
+        break;
+      default:
+        url = "album";
+    }
+    console.log(result);
+  };
+
   if (loading) {
     return (
       <div className="bg-black text-white">
@@ -35,6 +50,7 @@ const SearchResults = ({ results, selected }) => {
         </p>
         {myItems.map((item) => (
           <div
+            onClick={() => resultsHandler(item)}
             className="text-gray-300 flex items-center gap-4 py-2 border-b border-gray-700 first-of-type:border-t"
             key={uuidv4()}
           >

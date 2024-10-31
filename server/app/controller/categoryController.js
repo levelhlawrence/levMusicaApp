@@ -19,7 +19,13 @@ const browseCategories = async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    res.status(error.response?.status || 500).json({ message: error.message });
+    if (error.status === 401) {
+      res.redirect(process.env.CLIENT_HOME_PAGE + "/login");
+    } else {
+      res
+        .status(error.response?.status || 500)
+        .json({ message: error.message });
+    }
   }
 };
 
@@ -43,7 +49,13 @@ const browseSingleCategory = async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    res.status(error.response?.status || 500).json({ message: error.message });
+    if (error.status === 401) {
+      res.redirect(process.env.CLIENT_HOME_PAGE + "/login");
+    } else {
+      res
+        .status(error.response?.status || 500)
+        .json({ message: error.message });
+    }
   }
 };
 
