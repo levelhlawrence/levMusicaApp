@@ -40,8 +40,8 @@ app.use("/playlist", playlistRoutes);
 app.use("/search", searchRoutes);
 app.use("/albums", albumsRoutes);
 app.use("/tracks", tracksRoutes);
-// app.use("/shows", showsRoutes);
+app.use("/audiobooks", audiobooksRoutes);
+app.use("/shows", showsRoutes);
 // app.use("/episodes", episodesRoutes);
-// app.use("/audiobooks ", audiobooksRoutes);
 
 module.exports = app;
