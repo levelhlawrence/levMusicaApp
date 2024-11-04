@@ -17,6 +17,7 @@ const tracksRoutes = require("./router/tracksRoutes");
 const showsRoutes = require("./router/showsRoutes");
 const episodesRoutes = require("./router/episodesRoutes");
 const audiobooksRoutes = require("./router/audiobooksRoutes");
+const userRoutes = require("./router/userRoutes");
 
 //middlewares
 app.use(
@@ -39,9 +40,10 @@ app.use("/browse", categoryRoutes);
 app.use("/playlist", playlistRoutes);
 app.use("/search", searchRoutes);
 app.use("/albums", albumsRoutes);
+app.use("/me", userRoutes);
 app.use("/tracks", tracksRoutes);
 app.use("/audiobooks", audiobooksRoutes);
 app.use("/shows", showsRoutes);
-// app.use("/episodes", episodesRoutes);
+app.use("/episodes", episodesRoutes);
 
 module.exports = app;

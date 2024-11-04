@@ -1,16 +1,48 @@
-/* eslint-disable react/prop-types */
-
+import authCred from "../auth/serverAuth";
+import { useNavigate } from "react-router-dom";
 import { createContext, useState } from "react";
+
+/* eslint-disable react/prop-types */
 
 const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
-  const [toggleMenu, setToggleMenu] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+  const [categories, setCategories] = useState();
+
+  const navigate = useNavigate();
+
+  // get user
+  const getUser = async () => {
+    try {
+      const response = await authCred.get("/me");
+      const data = response.data;
+      setUser(data);
+    } catch (error) {
+      console.warn(error.message);
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
+  // get categories
+  const getCategories = async () => {
+    try {
+      const response = await authCred.get("/browse/categories");
+      const data = response.data;
+      setCategories(data);
+      console.log(data);
+    } catch (error) {
+      console.warn(error.message);
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
 
   return (
     <MyContext.Provider
-      value={{ toggleMenu, setToggleMenu, loggedIn, setLoggedIn }}
+      value={{ user, getUser, navigate, categories, getCategories }}
     >
       {children}
     </MyContext.Provider>

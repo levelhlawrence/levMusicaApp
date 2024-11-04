@@ -3,7 +3,8 @@ const Token = require("../models/TokenModel");
 
 // login
 const login = (req, res) => {
-  let scope = "user-read-private user-read-email";
+  let scope =
+    "user-read-private user-read-email user-read-playback-state user-read-currently-playing user-modify-playback-state app-remote-control streaming user-library-read user-library-modify user-read-recently-played user-top-read user-read-playback-position";
   const authParams = new URLSearchParams({
     response_type: "code",
     client_id: process.env.CLIENT_ID,
