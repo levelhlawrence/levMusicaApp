@@ -9,6 +9,7 @@ const MyContext = createContext();
 const ContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [categories, setCategories] = useState();
+  const [audiobooks, setAudioBooks] = useState();
 
   const navigate = useNavigate();
 
@@ -31,6 +32,20 @@ const ContextProvider = ({ children }) => {
       const response = await authCred.get("/browse/categories");
       const data = response.data;
       setCategories(data);
+    } catch (error) {
+      console.warn(error.message);
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
+
+  // get audioBooks
+  const getAudioBooks = async () => {
+    try {
+      const response = await authCred.get("/audiobooks");
+      const data = response.data;
+      setAudioBooks(data);
       console.log(data);
     } catch (error) {
       console.warn(error.message);
@@ -42,7 +57,15 @@ const ContextProvider = ({ children }) => {
 
   return (
     <MyContext.Provider
-      value={{ user, getUser, navigate, categories, getCategories }}
+      value={{
+        user,
+        getUser,
+        navigate,
+        categories,
+        getCategories,
+        getAudioBooks,
+        audiobooks,
+      }}
     >
       {children}
     </MyContext.Provider>

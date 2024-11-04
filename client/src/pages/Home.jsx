@@ -3,11 +3,19 @@ import { MyContext } from "../components/MyContext";
 import { v4 as uuidv4 } from "uuid";
 
 const Home = () => {
-  const { user, getUser, categories, getCategories } = useContext(MyContext);
+  const {
+    user,
+    getUser,
+    categories,
+    getCategories,
+    getAudioBooks,
+    audiobooks,
+  } = useContext(MyContext);
 
   useEffect(() => {
     getUser();
     getCategories();
+    getAudioBooks();
   }, []);
   return (
     <section
@@ -48,6 +56,28 @@ const Home = () => {
                       alt={item?.name}
                     />
                     <p className="text-xs absolute bottom-1">{item?.name}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {audiobooks && (
+          <div className="text-white mt-6">
+            <h4 className="font-semibold mb-2">Audio Books</h4>
+            <div className="flex gap-6 overflow-scroll">
+              {audiobooks.audiobooks.map((book) => {
+                return (
+                  <div
+                    className="min-w-24 min-h-20 flex flex-col"
+                    key={uuidv4()}
+                  >
+                    <img
+                      className="rounded-lg"
+                      src={book?.images?.[0]?.url}
+                      alt={book?.name}
+                    />
+                    <p className="mt-4 text-xs text-center">{book?.name}</p>
                   </div>
                 );
               })}
