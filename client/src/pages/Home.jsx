@@ -10,12 +10,15 @@ const Home = () => {
     getCategories,
     getAudioBooks,
     audiobooks,
+    getFeaturedTracks,
+    featuredTracks,
   } = useContext(MyContext);
 
   useEffect(() => {
     getUser();
     getCategories();
     getAudioBooks();
+    getFeaturedTracks();
   }, []);
   return (
     <section
@@ -26,7 +29,9 @@ const Home = () => {
         <div className="w-full flex items-center justify-between">
           <h3 className="text-2xl font-semibold">
             Welcome,{" "}
-            <span className="font-light capitalize">{user?.display_name}</span>
+            <span className="text-3xl font-light capitalize">
+              {user?.display_name}
+            </span>
           </h3>
           <div />
           {user?.image?.[0] ? (
@@ -42,12 +47,12 @@ const Home = () => {
       <article>
         {categories && (
           <div className="text-white mt-4">
-            <h4 className="font-semibold mb-2">Categories</h4>
+            <h4 className="font-semibold mb-2 text-2xl">Categories</h4>
             <div className="flex gap-6 overflow-scroll">
               {categories?.categories?.items?.map((item) => {
                 return (
                   <div
-                    className="min-w-24 min-h-20 relative flex justify-center"
+                    className="min-w-40 min-h-20 relative flex justify-center"
                     key={uuidv4()}
                   >
                     <img
@@ -64,12 +69,12 @@ const Home = () => {
         )}
         {audiobooks && (
           <div className="text-white mt-6">
-            <h4 className="font-semibold mb-2">Audio Books</h4>
+            <h4 className="font-semibold mb-2 text-2xl">Audio Books</h4>
             <div className="flex gap-6 overflow-scroll">
-              {audiobooks.audiobooks.map((book) => {
+              {audiobooks?.audiobooks?.map((book) => {
                 return (
                   <div
-                    className="min-w-24 min-h-20 flex flex-col"
+                    className="min-w-40 min-h-20 flex flex-col"
                     key={uuidv4()}
                   >
                     <img
@@ -77,7 +82,29 @@ const Home = () => {
                       src={book?.images?.[0]?.url}
                       alt={book?.name}
                     />
-                    <p className="mt-4 text-xs text-center">{book?.name}</p>
+                    <p className="mt-4 text-center">{book?.name}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {featuredTracks && (
+          <div className="text-white mt-6">
+            <h4 className="font-semibold mb-2 text-2xl">Featured Tracks</h4>
+            <div className="flex gap-6 overflow-scroll">
+              {featuredTracks?.tracks?.map((track) => {
+                return (
+                  <div
+                    className="min-w-40 min-h-20 flex flex-col"
+                    key={uuidv4()}
+                  >
+                    <img
+                      className="rounded-lg"
+                      src={track?.album.images?.[0]?.url}
+                      alt={track?.name}
+                    />
+                    <p className="mt-4 text-center">{track?.name}</p>
                   </div>
                 );
               })}

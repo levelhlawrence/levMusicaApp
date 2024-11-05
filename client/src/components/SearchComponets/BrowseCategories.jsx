@@ -29,6 +29,7 @@ const BrowseCategories = () => {
       navigate(`/playlist/${song.id}`, {
         state: { song: data },
       });
+      
     } catch (error) {
       console.error("Error fetching category details:", error.message);
       if (error.status === 401) {

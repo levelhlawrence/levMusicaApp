@@ -1,7 +1,7 @@
-const { getSingleAlbum } = require("../controller/albumsController");
+const {getSingleEpisode} = require("../controller/episodesController");
 const router = require("express").Router();
 
 // get several album
-router.get("/test", getSingleAlbum);
+router.get("/:id", getSingleEpisode);
 
 module.exports = router;

@@ -4,12 +4,13 @@ import {useRef, useState} from "react";
 import {FaPlay} from "react-icons/fa";
 import {IoMdPause} from "react-icons/io";
 
-const GetAlbum = () => {
+const GetAudiobooks = () => {
     const {state} = useLocation();
     const album = state?.album;
     const audioRef = useRef(null);
     const [currentTrack, setCurrentTrack] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    console.log(album);
 
     const loadTrackHandler = (track) => {
         try {
@@ -55,8 +56,8 @@ const GetAlbum = () => {
                     <p className="font-semibold mb-4 bg-sky-700 w-fit px-2 rounded-xl">
                         Tracks{" "}
                         <span className="text-sm font-light text-gray-300 ">
-                    {album.tracks?.total || 0}
-                  </span>
+              {album.tracks?.total || 0}
+            </span>
                     </p>
 
                     <div>
@@ -102,4 +103,4 @@ const GetAlbum = () => {
     );
 };
 
-export default GetAlbum;
+export default GetAudiobooks;

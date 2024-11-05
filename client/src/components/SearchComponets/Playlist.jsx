@@ -37,8 +37,6 @@ const Playlist = () => {
     } catch (error) {
       console.log(error.message);
     }
-
-    console.log(track);
   };
 
   return (

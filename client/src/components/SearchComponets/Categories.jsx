@@ -11,7 +11,7 @@ const Categories = () => {
     try {
       const response = await authCred.get("/browse/categories");
       const data = response.data.categories;
-      setCategoryData(data);
+      return setCategoryData(data);
     } catch (error) {
       console.warn("Error:", error.message);
       if (error.response?.status === 401) {

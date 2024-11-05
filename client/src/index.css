@@ -5,9 +5,15 @@
 /* extra styles */
 
 .scroll-container {
-  scrollbar-width: none;
+    scrollbar-width: none;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .scroll-container::-webkit-scrollbar {
-  display: none;
+    display: none;
 }

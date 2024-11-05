@@ -10,6 +10,7 @@ const ContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [categories, setCategories] = useState();
   const [audiobooks, setAudioBooks] = useState();
+  const [featuredTracks, setFeaturedTracks] = useState();
 
   const navigate = useNavigate();
 
@@ -46,6 +47,19 @@ const ContextProvider = ({ children }) => {
       const response = await authCred.get("/audiobooks");
       const data = response.data;
       setAudioBooks(data);
+    } catch (error) {
+      console.warn(error.message);
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
+
+  const getFeaturedTracks = async () => {
+    try {
+      const response = await authCred.get("/tracks");
+      const data = response.data;
+      setFeaturedTracks(data);
       console.log(data);
     } catch (error) {
       console.warn(error.message);
@@ -65,6 +79,8 @@ const ContextProvider = ({ children }) => {
         getCategories,
         getAudioBooks,
         audiobooks,
+        featuredTracks,
+        getFeaturedTracks,
       }}
     >
       {children}

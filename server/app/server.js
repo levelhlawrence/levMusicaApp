@@ -18,6 +18,7 @@ const showsRoutes = require("./router/showsRoutes");
 const episodesRoutes = require("./router/episodesRoutes");
 const audiobooksRoutes = require("./router/audiobooksRoutes");
 const userRoutes = require("./router/userRoutes");
+const artistRoutes = require("./router/artistsRoutes");
 
 //middlewares
 app.use(
@@ -43,6 +44,7 @@ app.use("/albums", albumsRoutes);
 app.use("/me", userRoutes);
 app.use("/tracks", tracksRoutes);
 app.use("/audiobooks", audiobooksRoutes);
+app.use("/artists", artistRoutes);
 app.use("/shows", showsRoutes);
 app.use("/episodes", episodesRoutes);
 
